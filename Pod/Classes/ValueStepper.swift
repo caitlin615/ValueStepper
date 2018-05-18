@@ -95,6 +95,12 @@ private enum Button: Int {
         }
     }
 
+    /// The text color of the value label when in disabled state.
+    @IBInspectable public var disabledLabelTextColor: UIColor = UIColor.gray
+
+    /// The background color of the value label when in disabled state.
+    @IBInspectable public var disabledBackgroundLabelColor: UIColor = UIColor.white
+
     /// Describes the format of the value.
     public var numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -229,8 +235,8 @@ private enum Button: Int {
         let thickness = 1.0 as CGFloat
         let iconSize: CGFloat = sliceHeight * 0.6
 
-        valueLabel.backgroundColor = backgroundLabelColor
-        valueLabel.textColor = labelTextColor
+        valueLabel.backgroundColor = isUserInteractionEnabled ? backgroundLabelColor : disabledBackgroundLabelColor
+        valueLabel.textColor = isUserInteractionEnabled ? labelTextColor : disabledLabelTextColor
 
         // Layer customizations
         layer.borderColor = tintColor.cgColor
@@ -407,7 +413,7 @@ private enum Button: Int {
     open override func tintColorDidChange() {
         layer.borderColor = tintColor.cgColor
         iconButtonColor = tintColor
-        valueLabel.textColor = labelTextColor
+        valueLabel.textColor = isUserInteractionEnabled ? labelTextColor : disabledLabelTextColor
         leftSeparator.strokeColor = tintColor.cgColor
         rightSeparator.strokeColor = tintColor.cgColor
         increaseLayer.strokeColor = tintColor.cgColor
@@ -435,5 +441,3 @@ extension Double {
         return NSDecimalNumber(value: self).rounding(accordingToBehavior: behavior).doubleValue
     }
 }
-
-
