@@ -169,7 +169,7 @@ private enum Button: Int {
 
     // MARK: Initializers
 
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         // Override frame with default width and height
         let frameWithDefaultSize = CGRect(x: Double(frame.origin.x), y: Double(frame.origin.y), width: defaultWidth, height: defaultHeight)
         super.init(frame: frameWithDefaultSize)
